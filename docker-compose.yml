@@ -1,0 +1,31 @@
+version: "3.8"
+
+services:
+  web:
+    container_name: web_app
+    image: python:3.8
+    ports:
+      - "8000:8000"
+    networks:
+      - db_network
+
+  database:
+    container_name: postgres_db
+    image: postgres:latest
+    porst:
+      - "5432:5432"
+    depends_on:
+      -web
+      -database
+    environment:
+      -NAME=Docker
+      -WEB_HOST=web_app
+      -WEB_POR=8000
+      -DATABASE_HOST=postgres_db
+      -DATABASE_POR=5432
+    network:
+      - db_network
+
+networks:
+  db_network:
+    name: db_network
