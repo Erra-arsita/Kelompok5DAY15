@@ -1,0 +1,22 @@
+version: '3'
+services:
+  web:
+    build: .
+    container_name: data_ingestion_app
+    depends_on:
+      - database
+    networks:
+      - data_network
+
+  database:
+    image: postgres:latest
+    container_name: postgres_db
+    environment:
+      POSTGRES_USER: your_db_user
+      POSTGRES_PASSWORD: your_db_password
+      POSTGRES_DB: your_db_name
+    networks:
+      - data_network
+
+networks:
+  data_network:
